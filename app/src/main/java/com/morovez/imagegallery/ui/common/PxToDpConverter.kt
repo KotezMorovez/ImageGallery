@@ -1,4 +1,4 @@
-package com.morovez.imagegallery.common
+package com.morovez.imagegallery.ui.common
 
 import android.content.Context
 import android.util.DisplayMetrics
