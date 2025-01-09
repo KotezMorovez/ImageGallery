@@ -1,5 +1,6 @@
 package com.morovez.imagegallery.ui.gallery
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.morovez.imagegallery.domain.ImageInteractor
@@ -16,7 +17,11 @@ class GalleryScreenViewModel @Inject constructor(
     private val _imagesList: MutableStateFlow<List<String>> = MutableStateFlow(listOf())
     val imagesList = _imagesList.asStateFlow()
 
+    var isImageListNotLoaded = true
+
     fun getImages(){
+        isImageListNotLoaded = false
+        Log.e("DEBUG", "list")
         viewModelScope.launch {
             _imagesList.value = imageInteractor.getImages()
         }

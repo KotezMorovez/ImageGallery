@@ -10,8 +10,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.morovez.imagegallery.ui.theme.Color
@@ -20,7 +23,7 @@ import com.morovez.imagegallery.ui.theme.Typography
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    title: String,
+    title: String = "",
     hasBackButton: Boolean = false,
     hasActionButton: Boolean = false,
     onActionClickListener: (() -> Unit)? = null,
@@ -50,9 +53,13 @@ fun TopBar(
             }
         },
         navigationIcon = {
+            var isButtonEnable by remember { mutableStateOf(true) }
             if (hasBackButton) {
                 IconButton(onClick = {
-                    onBackClickListener?.invoke()
+                    if (isButtonEnable) {
+                        isButtonEnable = false
+                        onBackClickListener?.invoke()
+                    }
                 }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -60,13 +67,6 @@ fun TopBar(
                     )
                 }
             }
-        },
-        colors = TopAppBarColors(
-            containerColor = Color.Background,
-            scrolledContainerColor = Color.Background,
-            navigationIconContentColor = Color.PrimaryTextColor,
-            titleContentColor = Color.PrimaryTextColor,
-            actionIconContentColor = Color.PrimaryTextColor
-        )
+        }
     )
 }

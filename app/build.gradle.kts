@@ -69,4 +69,5 @@ dependencies {
     //MEDIA
     implementation(libs.glide)
     implementation (libs.glide.compose)
+    implementation(libs.zoomable)
 }

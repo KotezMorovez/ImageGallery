@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -26,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.Glide
 import com.morovez.imagegallery.R
-import com.morovez.imagegallery.ui.theme.Color
 import com.morovez.imagegallery.ui.composable.*
 import com.morovez.imagegallery.ui.common.pxToDp
 
@@ -37,7 +35,7 @@ fun GalleryScreen(
 ) {
     val urlList by viewModel.imagesList.collectAsState()
 
-    LaunchedEffect(Unit) {
+    if(viewModel.isImageListNotLoaded) {
         viewModel.getImages()
     }
 
@@ -61,7 +59,6 @@ private fun GalleryScreenContent(
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = Color.Background,
         topBar = {
             TopBar(
                 title = stringResource(id = R.string.gallery_title)
