@@ -2,7 +2,6 @@ package com.morovez.imagegallery.ui.composable
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -20,7 +19,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.morovez.imagegallery.R
-import com.morovez.imagegallery.ui.common.dpToPx
+import com.morovez.imagegallery.utils.throttleClickable
+import com.morovez.imagegallery.utils.dpToPx
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -28,7 +28,7 @@ fun ItemView(
     context: Context,
     requestManager: RequestManager,
     item: String,
-    onItemClicked: (id: String) -> Unit,
+    onItemClickListener: (id: String) -> Unit,
     urlErrorListener: (id: String) -> Unit
 ) {
     GlideImage(
@@ -40,7 +40,7 @@ fun ItemView(
         modifier = Modifier
             .padding(4.dp)
             .aspectRatio(1f)
-            .clickable { onItemClicked.invoke(item) }
+            .throttleClickable { onItemClickListener.invoke(item) }
     ) {
         it.thumbnail(
             requestManager

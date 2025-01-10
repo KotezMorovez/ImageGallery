@@ -10,6 +10,6 @@ class ImageInteractorImpl @Inject constructor(
     private val imageRepository: ImageRepository
 ) : ImageInteractor {
     override suspend fun getImages(): List<String> {
-        return imageRepository.getImagesUrlList()
+        return imageRepository.getImagesUrlList().filter { it.startsWith("http") }
     }
 }

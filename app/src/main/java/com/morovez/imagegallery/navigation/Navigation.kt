@@ -30,7 +30,7 @@ fun ImageGalleryRouter(navController: NavHostController = rememberNavController(
             GalleryScreen(
                 onItemClickListener = { url ->
                     val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
-                   navController.navigate(ImageGalleryScreens.VIEW_IMAGE.name + "/${encodedUrl}")
+                    navController.navigate(ImageGalleryScreens.VIEW_IMAGE.name + "/${encodedUrl}")
                 }
             )
         }
@@ -40,9 +40,9 @@ fun ImageGalleryRouter(navController: NavHostController = rememberNavController(
             arguments = listOf(navArgument("encodedUrl") {
                 type = NavType.StringType
             })
-        ){
+        ) {
             ViewImageScreen(
-                url = it.arguments?.getString("encodedUrl"),
+                url = it.arguments?.getString("encodedUrl") ?: "",
                 onBackClickListener = {
                     navController.popBackStack()
                 }

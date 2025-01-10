@@ -12,9 +12,9 @@ class ImageServiceImpl @Inject constructor(
     override suspend fun getImagesUrlList(): List<String> {
         val response = api.downloadFile()
         if (response.isSuccessful && response.body() != null) {
-            response.body()?.use { responseBody ->
+            response.body()?.let { responseBody ->
                 val bodyString = responseBody.string()
-                val urlList = bodyString.lines().filter { it.startsWith("http") }
+                val urlList = bodyString.lines()
                 return urlList
             }
         }

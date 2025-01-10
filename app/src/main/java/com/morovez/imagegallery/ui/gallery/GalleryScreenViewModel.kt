@@ -1,6 +1,5 @@
 package com.morovez.imagegallery.ui.gallery
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.morovez.imagegallery.domain.ImageInteractor
@@ -13,21 +12,20 @@ import javax.inject.Inject
 @HiltViewModel
 class GalleryScreenViewModel @Inject constructor(
     private val imageInteractor: ImageInteractor
-): ViewModel() {
+) : ViewModel() {
     private val _imagesList: MutableStateFlow<List<String>> = MutableStateFlow(listOf())
     val imagesList = _imagesList.asStateFlow()
 
     var isImageListNotLoaded = true
 
-    fun getImages(){
+    fun getImages() {
         isImageListNotLoaded = false
-        Log.e("DEBUG", "list")
         viewModelScope.launch {
             _imagesList.value = imageInteractor.getImages()
         }
     }
 
-    fun deleteUrlFromList(url: String){
+    fun deleteUrlFromList(url: String) {
         _imagesList.value = _imagesList.value.filter { it != url }
     }
 }

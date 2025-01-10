@@ -19,19 +19,15 @@ import me.saket.telephoto.zoomable.zoomable
 
 @Composable
 fun ViewImageScreen(
-    url: String?, onBackClickListener: () -> Unit
+    url: String,
+    onBackClickListener: () -> Unit
 ) {
     var isToolbarVisible by remember { mutableStateOf(true) }
 
-    if (url != null) {
-        ViewImageContent(url = url,
-            isToolbarVisible = isToolbarVisible,
-            onBackClickListener = { onBackClickListener.invoke() },
-            onClickListener = { isToolbarVisible = !isToolbarVisible })
-    } else {
-        onBackClickListener.invoke()
-    }
-
+    ViewImageContent(url = url,
+        isToolbarVisible = isToolbarVisible,
+        onBackClickListener = { onBackClickListener.invoke() },
+        onClickListener = { isToolbarVisible = !isToolbarVisible })
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
@@ -59,7 +55,6 @@ private fun ViewImageContent(
             contentDescription = "image",
             contentScale = ContentScale.Fit
         )
-
 
         if (isToolbarVisible) {
             TopBar(

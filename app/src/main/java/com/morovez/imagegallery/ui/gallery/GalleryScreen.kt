@@ -26,7 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.Glide
 import com.morovez.imagegallery.R
 import com.morovez.imagegallery.ui.composable.*
-import com.morovez.imagegallery.ui.common.pxToDp
+import com.morovez.imagegallery.utils.pxToDp
 
 @Composable
 fun GalleryScreen(
@@ -35,7 +35,7 @@ fun GalleryScreen(
 ) {
     val urlList by viewModel.imagesList.collectAsState()
 
-    if(viewModel.isImageListNotLoaded) {
+    if (viewModel.isImageListNotLoaded) {
         viewModel.getImages()
     }
 
@@ -80,7 +80,9 @@ private fun GalleryScreenContent(
                         context = context,
                         requestManager = LocalContext.current.let { remember(it) { Glide.with(it) } },
                         item = item,
-                        onItemClicked = { onItemClickListener?.invoke(it) },
+                        onItemClickListener = {
+                            onItemClickListener?.invoke(it)
+                        },
                         urlErrorListener = { urlErrorListener?.invoke(item) }
                     )
                 }
@@ -104,7 +106,7 @@ private fun calculateColumnsCount(context: Context): Int {
     return width / 100
 }
 
-class ItemsListPreviewParameterProvider : PreviewParameterProvider<List<String>> {
+private class ItemsListPreviewParameterProvider : PreviewParameterProvider<List<String>> {
     override val values =
         sequenceOf(
             listOf(
