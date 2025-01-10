@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.bumptech.glide.Glide
 import com.morovez.imagegallery.R
 import com.morovez.imagegallery.ui.composable.*
+import com.morovez.imagegallery.ui.gallery.composable.ItemView
 import com.morovez.imagegallery.utils.pxToDp
 
 @Composable

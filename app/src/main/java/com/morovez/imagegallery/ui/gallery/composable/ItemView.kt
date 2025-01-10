@@ -1,4 +1,4 @@
-package com.morovez.imagegallery.ui.composable
+package com.morovez.imagegallery.ui.gallery.composable
 
 import android.content.Context
 import android.graphics.drawable.Drawable
