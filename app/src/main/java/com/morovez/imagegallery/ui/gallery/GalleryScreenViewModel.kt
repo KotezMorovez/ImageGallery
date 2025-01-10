@@ -12,17 +12,20 @@ import javax.inject.Inject
 @HiltViewModel
 class GalleryScreenViewModel @Inject constructor(
     private val imageInteractor: ImageInteractor
-): ViewModel() {
+) : ViewModel() {
     private val _imagesList: MutableStateFlow<List<String>> = MutableStateFlow(listOf())
     val imagesList = _imagesList.asStateFlow()
 
-    fun getImages(){
+    var isImageListNotLoaded = true
+
+    fun getImages() {
+        isImageListNotLoaded = false
         viewModelScope.launch {
             _imagesList.value = imageInteractor.getImages()
         }
     }
 
-    fun deleteUrlFromList(url: String){
+    fun deleteUrlFromList(url: String) {
         _imagesList.value = _imagesList.value.filter { it != url }
     }
 }
